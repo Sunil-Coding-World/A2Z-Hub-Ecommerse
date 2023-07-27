@@ -9,9 +9,9 @@ const HomePage = () => {
       <NavBar>          
         <ProductList>
         </ProductList>
-        <div className=" m-4">
+        {/* <div className=" m-4"> */}
         <Paging />
-        </div>
+        {/* </div> */}
       </NavBar>
     </div>
   );
