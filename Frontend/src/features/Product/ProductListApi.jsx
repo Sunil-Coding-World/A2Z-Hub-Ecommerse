@@ -36,4 +36,26 @@ export function fetchProducts() {
       resolve({data:{products:data,totalItems:+totalItems}})
     }
     );
+}
+  
+
+export function fetchCategories() {
+  return new Promise(async (resolve) =>{
+    //TODO: we will not hard-code server URL here
+    const response = await fetch('  http://localhost:8000/categories') 
+    const data = await response.json()
+    resolve({data})
   }
+  );
+}
+
+
+export function fetchBrands() {
+  return new Promise(async (resolve) =>{
+    //TODO: we will not hard-code server URL here
+    const response = await fetch('http://localhost:8000/brands') 
+    const data = await response.json()
+    resolve({data})
+  }
+  );
+}

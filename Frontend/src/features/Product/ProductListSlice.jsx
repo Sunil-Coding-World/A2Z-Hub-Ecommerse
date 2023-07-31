@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchProductById, fetchProducts, fetchProductsByFilter} from './ProductListApi';
+import { fetchProductById, fetchProducts, fetchProductsByFilter,fetchCategories,fetchBrands} from './ProductListApi';
 
 //GET
 export const fetchAllProducts = createAsyncThunk(
@@ -31,11 +31,33 @@ export const fetchAllProductsByFilter = createAsyncThunk(
   }
 );
 
+//GET
+export const fetchAllBrandsAsync = createAsyncThunk(
+  'product/fetchAllBrands',
+  async () => {
+    const response = await fetchBrands();
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+//GET
+export const fetchAllCategoriesAsync = createAsyncThunk(
+  'product/fetchAllCategories',
+  async () => {
+    const response = await fetchCategories();
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
 
  export const productSlice = createSlice({
   name: 'productSlice',
   initialState:{
     products: [],
+    brands: [],
+    categories: [],
     status: 'idle',
     totalItems: 0,
     selectedProduct:null
@@ -69,12 +91,28 @@ export const fetchAllProductsByFilter = createAsyncThunk(
         state.status = 'idle';
         state.selectedProduct = action.payload;
       })
+      .addCase(fetchAllBrandsAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAllBrandsAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.brands = action.payload;
+      })
+      .addCase(fetchAllCategoriesAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAllCategoriesAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.categories = action.payload;
+      })
   },
 });
 
 // export const { increment } = productSlice.actions;
 
 export const selectAllProducts = (state) => state.app.products;
+export const selectAllCategories = (state) => state.app.categories;
+export const selectAllBrands = (state) => state.app.brands;
 export const selectTotalItems = (state) => state.app.totalItems;
 export const selectProductById = (state) => state.app.selectedProduct;
 
