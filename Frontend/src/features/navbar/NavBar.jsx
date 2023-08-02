@@ -2,11 +2,14 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 
+
 import {
   Bars3Icon,
   ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
+import { selectAllItems } from "../Cart/CartSlice";
 
 const user = {
   name: "Tom Cook",
@@ -31,6 +34,8 @@ function classNames(...classes) {
 }
 
 const NavBar = ({ children }) => {
+  const items = useSelector(selectAllItems);
+  console.log(items);
   return (
     <>
       <div className="min-h-full ">
@@ -43,8 +48,8 @@ const NavBar = ({ children }) => {
                     <div className="flex-shrink-0">
                       <Link to="/">
                         <img
-                          className="h-8 w-8"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                          className="h-12 w-12"
+                          src="/shopping-bags.png"
                           alt="Your Company"
                         />
                       </Link>
@@ -52,7 +57,7 @@ const NavBar = ({ children }) => {
                     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-6">
                       <Link to="/">
                         <h1 className="ml-5 text-4xl font-bold tracking-tight text-white">
-                          shop me !
+                          A2Z HUB
                         </h1>
                       </Link>
                     </div>
@@ -90,9 +95,9 @@ const NavBar = ({ children }) => {
                         </button>
                       </Link>
 
-                      <span className="inline-flex items-center rounded-md mb-7 -ml-3 bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-                        3
-                      </span>
+                      {items.length>0 && <span className="inline-flex items-center rounded-md mb-7 -ml-3 bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                        {items.length}
+                      </span>}
 
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
@@ -205,9 +210,9 @@ const NavBar = ({ children }) => {
                       </button>
                     </Link>
 
-                    <span className="inline-flex items-center rounded-md mb-7 -ml-3 bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-                      3
-                    </span>
+                    {items.length>0 && <span className="inline-flex items-center rounded-md bg-red-50 mb-7 -ml-3 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                      {items.length} 
+                    </span>}
                   </div>
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
