@@ -36,7 +36,7 @@ const Login = () => {
             className="space-y-6"
             noValidate
             onSubmit={handleSubmit((data) => {
-              dispatch(checkUserAsync({ email: data.email, password: data.password }))
+              dispatch(checkUserAsync({ email: data.email, password: data.password , addresses:[] }))
               console.log(data)
             })}            
           >

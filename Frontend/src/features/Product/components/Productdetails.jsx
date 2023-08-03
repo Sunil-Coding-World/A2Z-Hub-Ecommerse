@@ -48,7 +48,9 @@ const ProductDetail= () => {
 
   const handlecart = (e)=>{
     e.preventDefault();
-    dispatch(AddtoCartAsync({...product,quantity:1,user:user.id })) 
+    const newItem = { ...product, quantity: 1, user: user.id };
+    delete newItem['id'];
+    dispatch(AddtoCartAsync(newItem)) 
   }
 
   useEffect(() => {

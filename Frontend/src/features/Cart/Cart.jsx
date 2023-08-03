@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 // import { Dialog, Transition } from "@headlessui/react";
 // import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteItemFromCartAsync, selectAllItems, updateCartAsync } from './CartSlice';
 
@@ -18,9 +18,15 @@ const Cart = () => {
   const handleRemove = (e,id) => {
     dispatch(deleteItemFromCartAsync(id))
   }
+
+  const updatePrice = (item) => {
+    return item.price * item.quantity;
+  };
+
   const [open, setOpen] = useState(true);
   return (
     <>
+      {!items.length && <Navigate to="/" replace={true}></Navigate>}
       <div className="mx-auto mt-12 my-12 max-w-7xl px-4 sm:px-6 lg:px-8 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl  my-12 font-bold tracking-tight text-gray-900">
@@ -44,7 +50,7 @@ const Cart = () => {
                         <h3>
                           <a href={item.href}>{item.tittle}</a>
                         </h3>
-                        <p className="ml-4">{item.price}</p>
+                        <p className="ml-4">{updatePrice(item)}</p>
                       </div>
                       <p className="mt-1 text-sm text-gray-500">
                         {item.brand}
