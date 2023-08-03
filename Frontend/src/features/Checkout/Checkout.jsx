@@ -11,7 +11,7 @@ import {
   selectLoggedInuser, updateUserAsync,
 } from "../auth/authSlice"
 import { useState } from "react"
-// import { createOrderAsync } from '../features/order/orderSlice';
+import { createOrderAsync } from '../order/OrderSlice';
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ function Checkout() {
       paymentMethod,
       selectedAddress,
     }
-    // dispatch(createOrderAsync(order))
+    dispatch(createOrderAsync(order))
     //TODO : Redirect to order-success page
     //TODO : clear cart after order
     //TODO : on server change the stock number of items

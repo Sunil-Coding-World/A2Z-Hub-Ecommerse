@@ -1,6 +1,12 @@
 const express = require("express")
 const server = express();
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { createProduct } = require("./controller/Product");
+const cors = require('cors');
+const productsRouter = require('./routes/Product');
+const categoriesRouter = require('./routes/Categories');
+const brandsRouter = require('./routes/Brand');
+
 
 
 
@@ -18,6 +24,18 @@ mongoose.connect(url,connectionParams)
         console.error(`Error connecting to the database. \n${err}`);
     })
 
-server.listen(8080, () => {
-    console.log("server is started on port 8080 ")
+//middlewares
+
+server.use(cors({
+    exposedHeaders:['X-Total-Count']
+}))
+server.use(express.json()); // to parse req.body
+server.use('/products', productsRouter.router);
+server.use('/categories', categoriesRouter.router)
+server.use('/brands', brandsRouter.router)
+
+server.post("/products",createProduct)
+
+server.listen(8000, () => {
+    console.log("server is started on port 8000 ")
 });
