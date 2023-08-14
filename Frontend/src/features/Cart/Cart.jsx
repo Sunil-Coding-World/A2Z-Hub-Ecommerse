@@ -15,9 +15,13 @@ const Cart = () => {
   const handleQuantity = (e,item) => {
     dispatch(updateCartAsync({...item, quantity: +e.target.value}))
   }
-  const handleRemove = (e,id) => {
-    dispatch(deleteItemFromCartAsync(id))
-  }
+ 
+  const handleRemove = (e, id) => {
+    const confirmed = window.confirm('Are you sure you want to remove this item from the cart?');
+    if (confirmed) {
+      dispatch(deleteItemFromCartAsync(id));
+    }
+  };
 
   const updatePrice = (item) => {
     return item.price * item.quantity;
@@ -29,9 +33,6 @@ const Cart = () => {
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
       <div className="mx-auto mt-12 my-12 max-w-7xl px-4 sm:px-6 lg:px-8 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl  my-12 font-bold tracking-tight text-gray-900">
-            Cart
-          </h1>
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
               {items.map((item) => (

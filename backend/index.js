@@ -4,8 +4,13 @@ const mongoose = require("mongoose");
 const { createProduct } = require("./controller/Product");
 const cors = require('cors');
 const productsRouter = require('./routes/Product');
-const categoriesRouter = require('./routes/Categories');
+// const categoriesRouter = require('./routes/Categories');
 const brandsRouter = require('./routes/Brand');
+const usersRouter = require('./routes/Users');
+const authRouter = require('./routes/Auth');
+const cartRouter = require('./routes/Cart');
+const ordersRouter = require('./routes/Order');
+
 
 
 
@@ -31,10 +36,14 @@ server.use(cors({
 }))
 server.use(express.json()); // to parse req.body
 server.use('/products', productsRouter.router);
-server.use('/categories', categoriesRouter.router)
+// server.use('/categories', categoriesRouter.router)
 server.use('/brands', brandsRouter.router)
+server.use('/users', usersRouter.router)
+server.use('/auth', authRouter.router)
+server.use('/cart', cartRouter.router)
+server.use('/orders', ordersRouter.router)
 
-server.post("/products",createProduct)
+
 
 server.listen(8000, () => {
     console.log("server is started on port 8000 ")

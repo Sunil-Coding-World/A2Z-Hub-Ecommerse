@@ -11,7 +11,7 @@ import {
   selectLoggedInuser, updateUserAsync,
 } from "../auth/authSlice"
 import { useState } from "react"
-import { createOrderAsync } from '../order/OrderSlice';
+import { createOrderAsync, selectCurrentOrder } from '../order/OrderSlice';
 
 function Checkout() {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ function Checkout() {
 
   const user = useSelector(selectLoggedInuser)
   const items = useSelector(selectAllItems)
+  const currentOrder = useSelector(selectCurrentOrder)
   const totalAmount = items.reduce(
     (amount, item) => item.price * item.quantity + amount,
     0
@@ -38,8 +39,11 @@ function Checkout() {
   }
 
   const handleRemove = (e, id) => {
-    dispatch(deleteItemFromCartAsync(id))
-  }
+    const confirmed = window.confirm('Are you sure you want to remove this item from the cart?');
+    if (confirmed) {
+      dispatch(deleteItemFromCartAsync(id));
+    }
+  };
 
   const handleAddress = (e) => {
     console.log(e.target.value)
@@ -48,7 +52,7 @@ function Checkout() {
 
   const handlePayment = (e) => {
     console.log(e.target.value)
-    setPaymentMethod(e.target.value)
+    setPaymentMethod(e.target.value) 
   }
 
   const handleOrder = (e) => {
@@ -59,6 +63,7 @@ function Checkout() {
       user,
       paymentMethod,
       selectedAddress,
+      status:'pending'
     }
     dispatch(createOrderAsync(order))
     //TODO : Redirect to order-success page
@@ -73,6 +78,7 @@ function Checkout() {
   return (
     <>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">

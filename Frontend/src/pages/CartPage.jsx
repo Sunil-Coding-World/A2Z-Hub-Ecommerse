@@ -4,7 +4,8 @@ import NavBar from '../features/navbar/NavBar'
 const CartPage = () => {
   return (
     <NavBar>
-          <Cart/>
+    <div className='mx-auto text-2xl bg-gray-800 text-center text-white '> Your Cart </div>
+      <Cart/>
     </NavBar>
   )
 }
