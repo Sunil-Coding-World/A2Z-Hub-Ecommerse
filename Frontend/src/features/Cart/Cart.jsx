@@ -30,7 +30,7 @@ const Cart = () => {
   const [open, setOpen] = useState(true);
   return (
     <>
-      {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      {/* {!items.length && <Navigate to="/" replace={true}></Navigate>} */}
       <div className="mx-auto mt-12 my-12 max-w-7xl px-4 sm:px-6 lg:px-8 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flow-root">

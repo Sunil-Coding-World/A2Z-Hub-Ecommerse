@@ -1,7 +1,7 @@
 export function AddtoCart(item) {
     return new Promise(async (resolve) =>{
       //TODO: we will not hard-code server URL here
-        const response = await fetch('http://localhost:8000/carts', {
+        const response = await fetch('https://a2z-hub-server.vercel.app/carts', {
             method: "POST",
             body: JSON.stringify(item),
             headers: {'content-type' : 'application/json'}
@@ -15,7 +15,7 @@ export function AddtoCart(item) {
 export function fetchItemsByUserId(userId) {
   return new Promise(async (resolve) =>{
     //TODO: we will not hard-code server URL here
-    const response = await fetch('http://localhost:8000/carts?user='+userId) 
+    const response = await fetch('https://a2z-hub-server.vercel.app/carts?user='+userId) 
     const data = await response.json()
     resolve({data})
   }
@@ -25,7 +25,7 @@ export function fetchItemsByUserId(userId) {
 
 export function updateCart(update) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8000/carts/'+update.id, {
+    const response = await fetch('https://a2z-hub-server.vercel.app/carts/'+update.id, {
       method: 'PATCH',
       body: JSON.stringify(update),
       headers: { 'content-type': 'application/json' },
@@ -39,7 +39,7 @@ export function updateCart(update) {
 
 export function deleteItemFromCart(itemId) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8000/carts/'+itemId, {
+    const response = await fetch('https://a2z-hub-server.vercel.app/carts/'+itemId, {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
     });
