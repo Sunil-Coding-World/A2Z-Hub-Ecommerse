@@ -29,7 +29,7 @@ import UserProfilePage from "./pages/UserProfilePage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element:  <Protected><HomePage/></Protected>,
+    element:  <HomePage/>,
   },
   {
     path: "/login",
